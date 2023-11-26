@@ -4,14 +4,14 @@
 SELECT count(orderID) 
 FROM BIT_DB.JanSales 
 WHERE length(orderid) = 6
-AND orderid <> 'Order ID'
+AND orderid <> 'Order ID';
 
 -- How many of those orders were for an iPhone?
 SELECT count(orderID) 
 FROM BIT_DB.JanSales 
 WHERE Product='iPhone'
 AND length(orderid) = 6
-AND orderid <> 'Order ID'
+AND orderid <> 'Order ID';
 
 -- Select the customer account numbers for all the orders that were placed in February.
 SELECT distinct acctnum
@@ -19,7 +19,7 @@ FROM BIT_DB.customers cust
 INNER JOIN BIT_DB.FebSales Feb
 On cust.order_id=FEB.orderid
 WHERE length(orderid)=6
-AND orderid <> 'Order ID' 
+AND orderid <> 'Order ID';
 
 -- Which product was the cheapest one sold in January, and what was the price?
 SELECT product, min(price)
@@ -47,3 +47,9 @@ ON FEB.orderid=cust.order_id
 WHERE Feb.Quantity>2
 AND length(orderid) = 6
 AND orderid <> 'Order ID';
+
+-- List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, SUM(quantity)
+FROM BIT_DB.FebSales
+WHERE location like '%Los Angeles%'
+GROUP BY Product;
